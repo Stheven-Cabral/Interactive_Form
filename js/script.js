@@ -44,7 +44,6 @@ hideOtherRoleInput();
 
 function displayOtherRoleInput() {
     const jobSelect = document.getElementById('title');
-    const jobSelectOption = document.querySelectorAll('#title option');
     jobSelect.addEventListener('change', () => {
         if (jobSelect.value === 'other') {
             otherJobRole.style.display = 'inherit';
