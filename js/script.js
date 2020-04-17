@@ -7,9 +7,11 @@ FSJS project 3 - Interactive Form
 /***
  * 'nameInput' global variable captures the '#name' input element.
  * 'otherJobRole' global variable captures the '#title' select element.
+ * 'colors' global variable captures the colors select element.
  ***/
 const nameInput = document.getElementById('name');
 const otherJobRole = document.getElementById('other-title');
+const colors = document.getElementById('colors-js-puns');
 
 
 /***
@@ -54,3 +56,13 @@ function displayOtherRoleInput() {
 }
 
 displayOtherRoleInput();
+
+
+function hideShirtColors() {
+    const selectShirtTheme = document.getElementById('design');
+    if (selectShirtTheme.value === 'Select Theme') {
+        colors.style.display = 'none';
+    }
+}
+
+hideShirtColors();  
