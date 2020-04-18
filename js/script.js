@@ -14,6 +14,10 @@ const nameInput = document.getElementById('name');
 const otherJobRole = document.getElementById('other-title');
 const colors = document.getElementById('colors-js-puns');
 const selectShirtTheme = document.getElementById('design');
+const activities = document.querySelector('.activities');
+const activityLabel = document.querySelectorAll('.activities label');
+const activityCheckboxes = document.querySelectorAll('.activities input');
+let totalActivityCost = 0;
 
 
 /***
@@ -114,6 +118,48 @@ function shirtColors() {
 
 shirtColors();
 
+
+const totalDiv = document.createElement('div');
+activities.appendChild(totalDiv);
+totalDiv.style.visibility = 'visible';
+console.log(totalDiv);
+
+
+document.querySelector('.activities').addEventListener('change', (e) => {
+    const clicked = e.target;
+    const clickedDayTime = clicked.getAttribute('data-day-and-time');
+    const clickedCost = clicked.getAttribute('data-cost');
+
+    for (let a = 0; a < activityCheckboxes.length; a += 1) {
+        const checkboxDayTime = activityCheckboxes[a].getAttribute('data-day-and-time');
+        if (clickedDayTime === checkboxDayTime && clicked !== activityCheckboxes[a]) {
+            if (clicked.checked) {
+                activityCheckboxes[a].disabled = true;
+                activityLabel[a].style.opacity = "0.4";
+            } else {
+                activityCheckboxes[a].disabled = false;
+                activityLabel[a].style.opacity = "1.0";
+            }
+        }
+    }
+
+    if (clicked.checked) {
+        totalActivityCost += parseInt(clickedCost);
+        totalDiv.textContent = `Total Price: $${totalActivityCost}.00`;
+    } else {
+        totalActivityCost -= parseInt(clickedCost);
+        totalDiv.textContent = `Total Price: $${totalActivityCost}.00`;
+    }
+
+    console.log(totalActivityCost);
+});
+
+
+
+
+// if (total !== 0) {
+
+// }
 
 /***
  * The following code hides the 'Select Payment Method' option so the user can't select it.
