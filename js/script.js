@@ -123,7 +123,13 @@ const selectMethodOption = document.querySelector('option[value="select method"]
 selectMethodOption.style.display = 'none';
 
 
-function selectPaymentMethod() {
+/***
+ * 'adjustPaymentMethod' function - hides the '#paypal' and '#bitcoin' payment options initially. It displays
+   the appropriate option based on what the user selects as their preferred payment option in the '#payment' select input. 
+ * Called the 'adjustPaymentMethod' function.
+ ***/
+
+function adjustPaymentMethod() {
     const payment = document.getElementById('payment');
     const paymentOptions = document.querySelectorAll('#payment option');
     const creditCard = document.getElementById('credit-card');
@@ -132,12 +138,22 @@ function selectPaymentMethod() {
     paypal.style.display = 'none';
     bitcoin.style.display = 'none';
 
-    // Put under a 'change' event listener.
-    if (payment.value === 'credit card' || payment.value === 'credit card') {
-        creditCard.style.display = 'none';
-    } else {
-        creditCard.style.display = 'block';
-    }
+    payment.addEventListener('change', ()=> {
+        if (payment.value === 'paypal') {
+            creditCard.style.display = 'none';
+            paypal.style.display = 'inherit';
+            bitcoin.style.display = 'none';
+        } else if (payment.value === 'bitcoin') {
+            creditCard.style.display = 'none';
+            paypal.style.display = 'none';
+            bitcoin.style.display = 'inherit';
+        } else {
+            creditCard.style.display = 'inherit';
+            paypal.style.display = 'none';
+            bitcoin.style.display = 'none';
+        }
+    });
+    
 }
 
-selectPaymentMethod();
+adjustPaymentMethod();
