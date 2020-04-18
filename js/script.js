@@ -115,3 +115,29 @@ function shirtColors() {
 shirtColors();
 
 
+/***
+ * The following code hides the 'Select Payment Method' option so the user can't select it.
+ ***/
+
+const selectMethodOption = document.querySelector('option[value="select method"]');
+selectMethodOption.style.display = 'none';
+
+
+function selectPaymentMethod() {
+    const payment = document.getElementById('payment');
+    const paymentOptions = document.querySelectorAll('#payment option');
+    const creditCard = document.getElementById('credit-card');
+    const paypal = document.getElementById('paypal');
+    const bitcoin = document.getElementById('bitcoin');
+    paypal.style.display = 'none';
+    bitcoin.style.display = 'none';
+
+    // Put under a 'change' event listener.
+    if (payment.value === 'credit card' || payment.value === 'credit card') {
+        creditCard.style.display = 'none';
+    } else {
+        creditCard.style.display = 'block';
+    }
+}
+
+selectPaymentMethod();
