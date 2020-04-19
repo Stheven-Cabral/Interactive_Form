@@ -284,6 +284,18 @@ const zipLabel = document.getElementById('zip-label');
 const zipInput = document.getElementById('zip');
 const cvvLabel = document.getElementById('cvv-label');
 const cvvInput = document.getElementById('cvv');
+const ccNumErrorSpan = document.createElement('span');
+const zipErrorSpan = document.createElement('span');
+const cvvErrorSpan = document.createElement('span');
+ccNumErrorSpan.style.color = 'red';
+ccNumErrorSpan.style.fontStyle = 'italic';
+zipErrorSpan.style.color = 'red';
+zipErrorSpan.style.fontStyle = 'italic';
+cvvErrorSpan.style.color = 'red';
+cvvErrorSpan.style.fontStyle = 'italic';
+ccNumLabel.appendChild(ccNumErrorSpan);
+zipLabel.appendChild(zipErrorSpan);
+cvvLabel.appendChild(cvvErrorSpan);
 
 function ccPaymentValidator(event) {
     const ccNumInputValue = ccNumInput.value;
@@ -292,26 +304,32 @@ function ccPaymentValidator(event) {
 
     if (/^\d{13,16}$/.test(ccNumInputValue)) {
         ccNumInput.style.borderColor = 'rgb(111, 157, 220)';
+        ccNumErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         ccNumInput.style.borderColor = 'red';
+        ccNumErrorSpan.innerHTML = '<br>Enter credit card number.';
     }
 
     if (/^\d{5,}/.test(zipInputValue)) {
         zipInput.style.borderColor = 'rgb(111, 157, 220)';
+        zipErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         zipInput.style.borderColor = 'red';
+        zipErrorSpan.innerHTML = '<br>Enter zip code.';
     }
 
     if (/^\d{3}$/.test(cvvInputValue)) {
         cvvInput.style.borderColor = 'rgb(111, 157, 220)';
+        cvvErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         cvvInput.style.borderColor = 'red';
+        cvvErrorSpan.innerHTML = '<br>Enter card cvv.';
     }
 }
 
