@@ -17,7 +17,6 @@ FSJS project 3 - Interactive Form
 
 const form = document.querySelector('form');
 const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('mail');
 const otherJobRole = document.getElementById('other-title');
 const colors = document.getElementById('colors-js-puns');
 const selectShirtTheme = document.getElementById('design');
@@ -25,9 +24,6 @@ const activities = document.querySelector('.activities');
 const activityLabel = document.querySelectorAll('.activities label');
 const activityCheckboxes = document.querySelectorAll('.activities input');
 let totalActivityCost = 0;
-const ccNumInput = document.getElementById('cc-num');
-const zipInput = document.getElementById('zip');
-const cvvInput = document.getElementById('cvv');
 
 
 /***
@@ -146,7 +142,7 @@ totalDisplay.style.fontWeight = 'bold';
  * Added if else statements that displays the total cost of chosen activities.
  ***/
 
-document.querySelector('.activities').addEventListener('change', (e) => {
+activities.addEventListener('change', (e) => {
     const clicked = e.target;
     const clickedDayTime = clicked.getAttribute('data-day-and-time');
     const clickedCost = clicked.getAttribute('data-cost');
@@ -217,15 +213,111 @@ function adjustPaymentMethod() {
 adjustPaymentMethod();
 
 
-function nameValidator() {
+const nameLabel = document.getElementById('name-label');
+const nameErrorSpan = document.createElement('span');
+nameErrorSpan.style.color = 'red';
+nameErrorSpan.style.fontStyle = 'italic';
+nameLabel.appendChild(nameErrorSpan);
+
+function nameValidator(event) {
     const nameInputValue = nameInput.value;
     if (nameInputValue.length > 0) {
-       nameInput.style.borderColor = 'rgb(111, 157, 220)'; 
+        nameInput.style.borderColor = 'rgb(111, 157, 220)';
+        nameErrorSpan.textContent = ''; 
     } else {
+        event.preventDefault();
+        nameInput.scrollIntoView();
         nameInput.style.borderColor = 'red';
+        nameErrorSpan.innerHTML = '<br>Enter your full name.';
+    }
+}
+
+
+const emailLabel = document.getElementById('email-label');
+const emailInput = document.getElementById('mail');
+const emailErrorSpan = document.createElement('span');
+emailErrorSpan.style.color = 'red';
+emailErrorSpan.style.fontStyle = 'italic';
+emailLabel.appendChild(emailErrorSpan);
+
+function emailValidator(event) {
+    const emailInputValue = emailInput.value;
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (emailRegex.test(emailInputValue)) {
+        emailInput.style.borderColor = 'rgb(111, 157, 220)';
+        emailErrorSpan.innerHTML = '';
+    } else {
+        event.preventDefault();
+        emailInput.scrollIntoView();
+        emailInput.style.borderColor = 'red';
+        emailErrorSpan.innerHTML = '<br>Enter a valid email format: name@gmail.com';
+    }
+}
+
+const activitiesLegend = document.querySelector('.activities legend');
+const activitiesErrorSpan = document.createElement('span');
+activitiesErrorSpan.style.color = 'red';
+activitiesErrorSpan.style.fontStyle = 'italic';
+activitiesErrorSpan.style.fontSize = '.75em';
+activitiesErrorSpan.style.fontWeight = 'normal';
+activitiesLegend.appendChild(activitiesErrorSpan);
+
+function activitiesValidator(event) {
+    let numActivities = 0;
+    for (let i = 0; i < activityCheckboxes.length; i += 1) {
+        if (activityCheckboxes[i].checked) {
+            numActivities += 1;
+        }
+    }
+    if (numActivities === 0) {
+        event.preventDefault();
+        activitiesErrorSpan.innerHTML = '<br>Choose atleast 1 activity.';
+    } else {
+        activitiesErrorSpan.innerHTML = '';
+    }
+}
+
+
+const ccNumLabel = document.getElementById('cc-num-label');
+const ccNumInput = document.getElementById('cc-num');
+const zipLabel = document.getElementById('zip-label');
+const zipInput = document.getElementById('zip');
+const cvvLabel = document.getElementById('cvv-label');
+const cvvInput = document.getElementById('cvv');
+
+function ccPaymentValidator(event) {
+    const ccNumInputValue = ccNumInput.value;
+    const zipInputValue = zipInput.value;
+    const cvvInputValue = cvvInput.value;
+
+    if (/^\d{13,16}$/.test(ccNumInputValue)) {
+        ccNumInput.style.borderColor = 'rgb(111, 157, 220)';
+    } else {
+        event.preventDefault();
+        ccNumInput.scrollIntoView();
+        ccNumInput.style.borderColor = 'red';
+    }
+
+    if (/^\d{5,}/.test(zipInputValue)) {
+        zipInput.style.borderColor = 'rgb(111, 157, 220)';
+    } else {
+        event.preventDefault();
+        ccNumInput.scrollIntoView();
+        zipInput.style.borderColor = 'red';
+    }
+
+    if (/^\d{3}$/.test(cvvInputValue)) {
+        cvvInput.style.borderColor = 'rgb(111, 157, 220)';
+    } else {
+        event.preventDefault();
+        ccNumInput.scrollIntoView();
+        cvvInput.style.borderColor = 'red';
     }
 }
 
 form.addEventListener('submit', (e) => {
-    nameValidator();
+    ccPaymentValidator(e);
+    activitiesValidator(e);
+    emailValidator(e);
+    nameValidator(e);
 });
