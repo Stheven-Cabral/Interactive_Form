@@ -15,7 +15,9 @@ FSJS project 3 - Interactive Form
  * 'totalActivityCost' set to 0 and used to display total cost of chosen activities.
  ***/
 
+const form = document.querySelector('form');
 const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('mail');
 const otherJobRole = document.getElementById('other-title');
 const colors = document.getElementById('colors-js-puns');
 const selectShirtTheme = document.getElementById('design');
@@ -23,6 +25,9 @@ const activities = document.querySelector('.activities');
 const activityLabel = document.querySelectorAll('.activities label');
 const activityCheckboxes = document.querySelectorAll('.activities input');
 let totalActivityCost = 0;
+const ccNumInput = document.getElementById('cc-num');
+const zipInput = document.getElementById('zip');
+const cvvInput = document.getElementById('cvv');
 
 
 /***
@@ -56,9 +61,9 @@ hideOtherRoleInput();
  ***/
 
 function displayOtherRoleInput() {
-    const jobSelect = document.getElementById('title');
-    jobSelect.addEventListener('change', () => {
-        if (jobSelect.value === 'other') {
+    const jobInput = document.getElementById('title');
+    jobInput.addEventListener('change', () => {
+        if (jobInput.value === 'other') {
             otherJobRole.style.display = 'inherit';
         } else {
             otherJobRole.style.display = 'none';
@@ -210,3 +215,17 @@ function adjustPaymentMethod() {
 }
 
 adjustPaymentMethod();
+
+
+function nameValidator() {
+    const nameInputValue = nameInput.value;
+    if (nameInputValue.length > 0) {
+       nameInput.style.borderColor = 'rgb(111, 157, 220)'; 
+    } else {
+        nameInput.style.borderColor = 'red';
+    }
+}
+
+form.addEventListener('submit', (e) => {
+    nameValidator();
+});
