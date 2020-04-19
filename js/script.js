@@ -9,7 +9,12 @@ FSJS project 3 - Interactive Form
  * 'otherJobRole' global variable captures the '#title' select element.
  * 'colors' global variable captures the '#colors-js-puns' div for t-shirt colors.
  * 'selectShirtTheme' global variable captures the '#design' select element.
+ * 'activities' global variable captures the '.activities' fieldset.
+ * 'activityLabel' global variable captures all activities in an array.
+ * 'activityCheckboxes' global variable captures checkbox input for all activities.
+ * 'totalActivityCost' set to 0 and used to display total cost of chosen activities.
  ***/
+
 const nameInput = document.getElementById('name');
 const otherJobRole = document.getElementById('other-title');
 const colors = document.getElementById('colors-js-puns');
@@ -119,11 +124,22 @@ function shirtColors() {
 shirtColors();
 
 
-const totalDiv = document.createElement('div');
-activities.appendChild(totalDiv);
-totalDiv.style.visibility = 'visible';
-console.log(totalDiv);
+/***
+ * The following code adds a div element that will contain the total cost of chosen activities.
+ ***/
 
+const totalDisplay = document.createElement('div');
+activities.appendChild(totalDisplay);
+totalDisplay.style.visibility = 'visible';
+totalDisplay.style.color = 'rgba(6, 49, 68, 0.9)';
+totalDisplay.style.fontWeight = 'bold';
+
+
+/***
+ * Added an an event listener to the '.activties' fieldset that disables events that conflict with
+   user chosen events.
+ * Added if else statements that displays the total cost of chosen activities.
+ ***/
 
 document.querySelector('.activities').addEventListener('change', (e) => {
     const clicked = e.target;
@@ -142,24 +158,15 @@ document.querySelector('.activities').addEventListener('change', (e) => {
             }
         }
     }
-
     if (clicked.checked) {
         totalActivityCost += parseInt(clickedCost);
-        totalDiv.textContent = `Total Price: $${totalActivityCost}.00`;
+        totalDisplay.textContent = `Total Price: $${totalActivityCost}.00`;
     } else {
         totalActivityCost -= parseInt(clickedCost);
-        totalDiv.textContent = `Total Price: $${totalActivityCost}.00`;
+        totalDisplay.textContent = `Total Price: $${totalActivityCost}.00`;
     }
-
-    console.log(totalActivityCost);
 });
 
-
-
-
-// if (total !== 0) {
-
-// }
 
 /***
  * The following code hides the 'Select Payment Method' option so the user can't select it.
