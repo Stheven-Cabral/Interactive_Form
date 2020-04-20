@@ -173,11 +173,18 @@ activities.addEventListener('change', (e) => {
 
 
 /***
- * The following code hides the 'Select Payment Method' option so the user can't select it.
+ * The following code disables the 'Select Payment Method' option so the user can't select it.
  ***/
 
 const selectMethodOption = document.querySelector('option[value="select method"]');
-selectMethodOption.style.display = 'none';
+selectMethodOption.disabled = true;
+
+
+/***
+ * The following code makes credit card the default payment option.
+ ***/
+
+payment.value = document.querySelector('option[value="credit card"]').value;
 
 
 /***
