@@ -14,6 +14,7 @@ FSJS project 3 - Interactive Form
  * 'activityLabel' global variable captures all activities in an array.
  * 'activityCheckboxes' global variable captures checkbox input for all activities.
  * 'totalActivityCost' set to 0 and used to display total cost of chosen activities.
+ * 'payment' global variable captures the '#payment' select element.
  ***/
 
 const form = document.querySelector('form');
@@ -25,6 +26,7 @@ const activities = document.querySelector('.activities');
 const activityLabel = document.querySelectorAll('.activities label');
 const activityCheckboxes = document.querySelectorAll('.activities input');
 let totalActivityCost = 0;
+const payment = document.getElementById('payment');
 
 
 /***
@@ -185,8 +187,6 @@ selectMethodOption.style.display = 'none';
  ***/
 
 function adjustPaymentMethod() {
-    const payment = document.getElementById('payment');
-    const paymentOptions = document.querySelectorAll('#payment option');
     const creditCard = document.getElementById('credit-card');
     const paypal = document.getElementById('paypal');
     const bitcoin = document.getElementById('bitcoin');
@@ -414,9 +414,12 @@ function cvvValidator(event) {
  ***/
 
 form.addEventListener('submit', (e) => {
-    cvvValidator(e);
-    zipValidator(e);
-    ccNumValidator(e);
+    if (payment.value === 'credit card') {
+        cvvValidator(e);
+        zipValidator(e);
+        ccNumValidator(e);
+    }
+    
     activitiesValidator(e);
     emailValidator(e);
     nameValidator(e);
