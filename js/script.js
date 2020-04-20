@@ -5,6 +5,7 @@ FSJS project 3 - Interactive Form
 
 
 /***
+ * 'form' global variable captures the whole sign up.
  * 'nameInput' global variable captures the '#name' input element.
  * 'otherJobRole' global variable captures the '#title' select element.
  * 'colors' global variable captures the '#colors-js-puns' div for t-shirt colors.
@@ -126,20 +127,20 @@ shirtColors();
 
 
 /***
- * The following code adds a div element that will contain the total cost of chosen activities.
+ * The following code adds a div element that will contain the total cost of the checked activities.
  ***/
 
 const totalDisplay = document.createElement('div');
 activities.appendChild(totalDisplay);
 totalDisplay.style.visibility = 'visible';
-totalDisplay.style.color = 'rgba(6, 49, 68, 0.9)';
+totalDisplay.style.color = '#395341';
 totalDisplay.style.fontWeight = 'bold';
 
 
 /***
- * Added an an event listener to the '.activties' fieldset that disables events that conflict with
-   user chosen events.
- * Added if else statements that displays the total cost of chosen activities.
+ * Added an an event listener to the '.activties' fieldset that disables events that have conflicting dates and times with
+   user checked events.
+ * Added if else statements that displays the total cost of checked activities.
  ***/
 
 activities.addEventListener('change', (e) => {
@@ -213,16 +214,27 @@ function adjustPaymentMethod() {
 adjustPaymentMethod();
 
 
+/***
+ * The following code appends a span element to the name input label. The  span contains any name input errors.
+ ***/
+
+
 const nameLabel = document.getElementById('name-label');
 const nameErrorSpan = document.createElement('span');
 nameErrorSpan.style.color = 'red';
 nameErrorSpan.style.fontStyle = 'italic';
 nameLabel.appendChild(nameErrorSpan);
 
+
+/***
+ * 'nameValidator' function - validates if the user entered a name. In addition, adds red border indicators and a message during a validation error.
+ * @param {object} event - accepts an event object.
+ ***/
+
 function nameValidator(event) {
     const nameInputValue = nameInput.value;
     if (nameInputValue.length > 0) {
-        nameInput.style.borderColor = 'rgb(111, 157, 220)';
+        nameInput.style.borderColor = '#395341';
         nameErrorSpan.textContent = ''; 
     } else {
         event.preventDefault();
@@ -233,6 +245,10 @@ function nameValidator(event) {
 }
 
 
+/***
+ * The following code appends a span element to the email input label. The  span contains any email input errors.
+ ***/
+
 const emailLabel = document.getElementById('email-label');
 const emailInput = document.getElementById('mail');
 const emailErrorSpan = document.createElement('span');
@@ -240,19 +256,30 @@ emailErrorSpan.style.color = 'red';
 emailErrorSpan.style.fontStyle = 'italic';
 emailLabel.appendChild(emailErrorSpan);
 
+
+/***
+ * 'emailValidator' function - validates if the user entered a valid email. In addition, adds red border indicators and a message during a validation error.
+ * @param {object} event - accepts an event object.
+ ***/
+
 function emailValidator(event) {
     const emailInputValue = emailInput.value;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailRegex.test(emailInputValue)) {
-        emailInput.style.borderColor = 'rgb(111, 157, 220)';
+        emailInput.style.borderColor = '#395341';
         emailErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
         emailInput.scrollIntoView();
         emailInput.style.borderColor = 'red';
-        emailErrorSpan.innerHTML = '<br>Enter a valid email format: name@gmail.com';
+        emailErrorSpan.innerHTML = '<br>Enter a valid email format: name@website.com';
     }
 }
+
+
+/***
+ * The following code appends a span element to the activities fieldset legend. The  span contains any activity input errors.
+ ***/
 
 const activitiesLegend = document.querySelector('.activities legend');
 const activitiesErrorSpan = document.createElement('span');
@@ -261,6 +288,12 @@ activitiesErrorSpan.style.fontStyle = 'italic';
 activitiesErrorSpan.style.fontSize = '.75em';
 activitiesErrorSpan.style.fontWeight = 'normal';
 activitiesLegend.appendChild(activitiesErrorSpan);
+
+
+/***
+ * 'activitiesValidator' function - validates if the user checked any activities. In addition, adds a message during a validation error.
+ * @param {object} event - accepts an event object.
+ ***/
 
 function activitiesValidator(event) {
     let numActivities = 0;
@@ -277,6 +310,11 @@ function activitiesValidator(event) {
     }
 }
 
+
+/***
+ * The following code appends a span element to the credit card #, zip code, and cvv input labels.
+ * The spans will contain validation error messages for the credit card #, zip code, and cvv inputs.
+ ***/
 
 const ccNumLabel = document.getElementById('cc-num-label');
 const ccNumInput = document.getElementById('cc-num');
@@ -297,13 +335,20 @@ ccNumLabel.appendChild(ccNumErrorSpan);
 zipLabel.appendChild(zipErrorSpan);
 cvvLabel.appendChild(cvvErrorSpan);
 
+
+/***
+ * 'ccPaymentValidator' function - validates if the user entered valid credit card information.
+   In addition, the function adds red border indicators and a message during a validation error.
+ * @param {object} event - accepts an event object.
+ ***/
+
 function ccPaymentValidator(event) {
     const ccNumInputValue = ccNumInput.value;
     const zipInputValue = zipInput.value;
     const cvvInputValue = cvvInput.value;
 
     if (/^\d{13,16}$/.test(ccNumInputValue)) {
-        ccNumInput.style.borderColor = 'rgb(111, 157, 220)';
+        ccNumInput.style.borderColor = '#395341';
         ccNumErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
@@ -313,7 +358,7 @@ function ccPaymentValidator(event) {
     }
 
     if (/^\d{5,}/.test(zipInputValue)) {
-        zipInput.style.borderColor = 'rgb(111, 157, 220)';
+        zipInput.style.borderColor = '#395341';
         zipErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
@@ -323,7 +368,7 @@ function ccPaymentValidator(event) {
     }
 
     if (/^\d{3}$/.test(cvvInputValue)) {
-        cvvInput.style.borderColor = 'rgb(111, 157, 220)';
+        cvvInput.style.borderColor = '#395341';
         cvvErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
@@ -332,6 +377,12 @@ function ccPaymentValidator(event) {
         cvvErrorSpan.innerHTML = '<br>Enter card cvv.';
     }
 }
+
+
+/***
+ * The following event listener calls the name, email, activities, and credit card payment 
+   validation functions during a form submit event.
+ ***/
 
 form.addEventListener('submit', (e) => {
     ccPaymentValidator(e);
