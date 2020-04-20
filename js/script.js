@@ -337,44 +337,73 @@ cvvLabel.appendChild(cvvErrorSpan);
 
 
 /***
- * 'ccPaymentValidator' function - validates if the user entered valid credit card information.
+ * 'ccNumValidator' function - validates if the user entered valid credit card number information.
    In addition, the function adds red border indicators and a message during a validation error.
+   The function displays an error when the input is blank during form submit and a different error when
+   the required digits are not met when a user is typing.
  * @param {object} event - accepts an event object.
  ***/
 
-function ccPaymentValidator(event) {
+function ccNumValidator(event) {
     const ccNumInputValue = ccNumInput.value;
-    const zipInputValue = zipInput.value;
-    const cvvInputValue = cvvInput.value;
-
     if (/^\d{13,16}$/.test(ccNumInputValue)) {
         ccNumInput.style.borderColor = '#395341';
         ccNumErrorSpan.innerHTML = '';
-    } else {
+    } else if (ccNumInputValue.length === 0) {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         ccNumInput.style.borderColor = 'red';
         ccNumErrorSpan.innerHTML = '<br>Enter credit card number.';
+    } else {
+        ccNumErrorSpan.innerHTML = '<br>Enter a 13 to 16 digit number.';
     }
+}
 
+
+/***
+ * 'zipValidator' function - validates if the user entered a valid zip code.
+   In addition, the function adds red border indicators and a message during a validation error.
+   The function displays an error when the input is blank during form submit and a different error when
+   the required digits are not met when a user is typing.
+ * @param {object} event - accepts an event object.
+ ***/
+
+function zipValidator(event) {
+    const zipInputValue = zipInput.value;
     if (/^\d{5,}/.test(zipInputValue)) {
         zipInput.style.borderColor = '#395341';
         zipErrorSpan.innerHTML = '';
-    } else {
+    } else if (zipInputValue.length === 0) {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         zipInput.style.borderColor = 'red';
         zipErrorSpan.innerHTML = '<br>Enter zip code.';
+    } else {
+        zipErrorSpan.innerHTML = '<br>Enter atleast 5 digits.';
     }
+}
 
+
+/***
+ * 'cvvValidator' function - validates if the user entered a valid credit card cvv.
+   In addition, the function adds red border indicators and a message during a validation error.
+   The function displays an error when the input is blank during form submit and a different error when
+   the required digits are not met when a user is typing.
+ * @param {object} event - accepts an event object.
+ ***/
+
+function cvvValidator(event) {
+    const cvvInputValue = cvvInput.value;
     if (/^\d{3}$/.test(cvvInputValue)) {
         cvvInput.style.borderColor = '#395341';
         cvvErrorSpan.innerHTML = '';
-    } else {
+    } else if (cvvInputValue.length === 0) {
         event.preventDefault();
         ccNumInput.scrollIntoView();
         cvvInput.style.borderColor = 'red';
         cvvErrorSpan.innerHTML = '<br>Enter card cvv.';
+    } else {
+        cvvErrorSpan.innerHTML = '<br>Enter atleast 3 digits.';
     }
 }
 
@@ -385,8 +414,28 @@ function ccPaymentValidator(event) {
  ***/
 
 form.addEventListener('submit', (e) => {
-    ccPaymentValidator(e);
+    cvvValidator(e);
+    zipValidator(e);
+    ccNumValidator(e);
     activitiesValidator(e);
     emailValidator(e);
     nameValidator(e);
+});
+
+
+/***
+ * The following credit card number, zip code, and cvv input event listeners call validator functions
+   when the user types in the input field. 
+ ***/
+
+ccNumInput.addEventListener('keyup', (e) => {
+    ccNumValidator(e);
+});
+
+zipInput.addEventListener('keyup', (e) => {
+    zipValidator(e);
+});
+
+cvvInput.addEventListener('keyup', (e) => {
+    cvvValidator(e);
 });
