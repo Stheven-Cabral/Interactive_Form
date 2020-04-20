@@ -379,7 +379,7 @@ function ccNumValidator(event) {
 
 function zipValidator(event) {
     const zipInputValue = zipInput.value;
-    if (/^\d{5,}/.test(zipInputValue)) {
+    if (/^\d{5}$/.test(zipInputValue)) {
         zipInput.style.borderColor = '#395341';
         zipErrorSpan.innerHTML = '';
     } else if (zipInputValue.length === 0) {
@@ -388,7 +388,7 @@ function zipValidator(event) {
         zipInput.style.borderColor = 'red';
         zipErrorSpan.innerHTML = '<br>Enter zip code.';
     } else {
-        zipErrorSpan.innerHTML = '<br>Enter atleast 5 digits.';
+        zipErrorSpan.innerHTML = '<br>Enter a 5 digit zipcode.';
     }
 }
 
