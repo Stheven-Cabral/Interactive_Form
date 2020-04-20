@@ -2,7 +2,7 @@
 Treehouse Techdegree:
 FSJS project 3 - Interactive Form
 ******************************************/
-
+/*jshint esversion: 6 */
 
 /***
  * 'form' global variable captures the form element.
