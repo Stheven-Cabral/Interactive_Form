@@ -238,7 +238,7 @@ function nameValidator(event) {
         nameErrorSpan.textContent = ''; 
     } else {
         event.preventDefault();
-        nameInput.scrollIntoView();
+        nameLabel.scrollIntoView();
         nameInput.style.borderColor = 'red';
         nameErrorSpan.innerHTML = '<br>Enter your full name.';
     }
@@ -271,7 +271,7 @@ function emailValidator(event) {
         emailErrorSpan.innerHTML = '';
     } else {
         event.preventDefault();
-        emailInput.scrollIntoView();
+        emailLabel.scrollIntoView();
         emailInput.style.borderColor = 'red';
         emailErrorSpan.innerHTML = '<br>Enter a valid email format: name@website.com';
     }
@@ -305,6 +305,7 @@ function activitiesValidator(event) {
     }
     if (numActivities === 0) {
         event.preventDefault();
+        activitiesLegend.scrollIntoView();
         activitiesErrorSpan.innerHTML = '<br>Choose atleast 1 activity.';
     } else {
         activitiesErrorSpan.innerHTML = '';
@@ -352,7 +353,7 @@ function ccNumValidator(event) {
         ccNumErrorSpan.innerHTML = '';
     } else if (ccNumInputValue.length === 0) {
         event.preventDefault();
-        ccNumInput.scrollIntoView();
+        ccNumLabel.scrollIntoView();
         ccNumInput.style.borderColor = 'red';
         ccNumErrorSpan.innerHTML = '<br>Enter credit card number.';
     } else {
@@ -376,7 +377,7 @@ function zipValidator(event) {
         zipErrorSpan.innerHTML = '';
     } else if (zipInputValue.length === 0) {
         event.preventDefault();
-        ccNumInput.scrollIntoView();
+        ccNumLabel.scrollIntoView();
         zipInput.style.borderColor = 'red';
         zipErrorSpan.innerHTML = '<br>Enter zip code.';
     } else {
@@ -400,7 +401,7 @@ function cvvValidator(event) {
         cvvErrorSpan.innerHTML = '';
     } else if (cvvInputValue.length === 0) {
         event.preventDefault();
-        ccNumInput.scrollIntoView();
+        ccNumLabel.scrollIntoView();
         cvvInput.style.borderColor = 'red';
         cvvErrorSpan.innerHTML = '<br>Enter card cvv.';
     } else {
