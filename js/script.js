@@ -5,7 +5,7 @@ FSJS project 3 - Interactive Form
 
 
 /***
- * 'form' global variable captures the whole sign up.
+ * 'form' global variable captures the form element.
  * 'nameInput' global variable captures the '#name' input element.
  * 'otherJobRole' global variable captures the '#title' select element.
  * 'colors' global variable captures the '#colors-js-puns' div for t-shirt colors.
@@ -140,9 +140,9 @@ totalDisplay.style.fontWeight = 'bold';
 
 
 /***
- * Added an an event listener to the '.activties' fieldset that disables events that have conflicting dates and times with
+ * Added an an event listener to the '.activities' fieldset that disables events that have conflicting dates and times with
    user checked events.
- * Added if else statements that displays the total cost of checked activities.
+ * In addition the event listener contains if else statements that displays the total cost of checked activities.
  ***/
 
 activities.addEventListener('change', (e) => {
@@ -264,6 +264,7 @@ emailLabel.appendChild(emailErrorSpan);
 
 function emailValidator(event) {
     const emailInputValue = emailInput.value;
+    // Email regular expression from emailregex.com
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailRegex.test(emailInputValue)) {
         emailInput.style.borderColor = '#395341';
@@ -278,7 +279,7 @@ function emailValidator(event) {
 
 
 /***
- * The following code appends a span element to the activities fieldset legend. The  span contains any activity input errors.
+ * The following code appends a span element to the activities fieldset legend. The span contains any activity input errors.
  ***/
 
 const activitiesLegend = document.querySelector('.activities legend');
@@ -337,7 +338,7 @@ cvvLabel.appendChild(cvvErrorSpan);
 
 
 /***
- * 'ccNumValidator' function - validates if the user entered valid credit card number information.
+ * 'ccNumValidator' function - validates if the user entered a valid credit card number.
    In addition, the function adds red border indicators and a message during a validation error.
    The function displays an error when the input is blank during form submit and a different error when
    the required digits are not met when a user is typing.
@@ -428,7 +429,7 @@ form.addEventListener('submit', (e) => {
 
 /***
  * The following credit card number, zip code, and cvv input event listeners call validator functions
-   when the user types in the input field. 
+   when the user types in the input fields. 
  ***/
 
 ccNumInput.addEventListener('keyup', (e) => {
