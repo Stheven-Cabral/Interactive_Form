@@ -1,6 +1,7 @@
 /******************************************
 Treehouse Techdegree:
 FSJS project 3 - Interactive Form
+By Stheven Cabral
 ******************************************/
 /*jshint esversion: 6 */
 
@@ -10,6 +11,7 @@ FSJS project 3 - Interactive Form
  * 'otherJobRole' global variable captures the '#title' select element.
  * 'colors' global variable captures the '#colors-js-puns' div for t-shirt colors.
  * 'selectShirtTheme' global variable captures the '#design' select element.
+ * 'shirtThemeOptions' global variable captures '#design' theme options in an array.
  * 'activities' global variable captures the '.activities' fieldset.
  * 'activityLabel' global variable captures all activities in an array.
  * 'activityCheckboxes' global variable captures checkbox input for all activities.
@@ -22,6 +24,7 @@ const nameInput = document.getElementById('name');
 const otherJobRole = document.getElementById('other-title');
 const colors = document.getElementById('colors-js-puns');
 const selectShirtTheme = document.getElementById('design');
+const shirtThemeOptions = document.querySelectorAll('#design option');
 const activities = document.querySelector('.activities');
 const activityLabel = document.querySelectorAll('.activities label');
 const activityCheckboxes = document.querySelectorAll('.activities input');
@@ -75,6 +78,7 @@ displayOtherRoleInput();
 
 /***
  * 'hideShirtColors' function - hides the T-shirt color label and select menu.
+ * The function also disables the 'Select Theme" option so it isn't clickable.
  * Called the 'hideShirtColors' function.
  ***/
 
@@ -82,6 +86,7 @@ function hideShirtColors() {
     if (selectShirtTheme.value === 'Select Theme') {
         colors.style.display = 'none';
     }
+    shirtThemeOptions[0].disabled = true;
 }
 
 hideShirtColors();
@@ -118,10 +123,9 @@ function shirtColors() {
             }
         }
         if (selectShirtTheme.value === 'js puns' || selectShirtTheme.value === 'heart js') {
+            shirtThemeOptions[0].style.display = 'none';
             colors.style.display = 'inherit';
-        } else {
-            hideShirtColors();
-        }
+        } 
     });
 }
 
@@ -173,11 +177,11 @@ activities.addEventListener('change', (e) => {
 
 
 /***
- * The following code disables the 'Select Payment Method' option so the user can't select it.
+ * The following code hides the 'Select Payment Method' option so the user can't select it.
  ***/
 
 const selectMethodOption = document.querySelector('option[value="select method"]');
-selectMethodOption.disabled = true;
+selectMethodOption.style.display = 'none';
 
 
 /***
@@ -238,13 +242,13 @@ nameLabel.appendChild(nameErrorSpan);
  * @param {object} event - accepts an event object.
  ***/
 
-function nameValidator(event) {
+function nameValidator() {
     const nameInputValue = nameInput.value;
     if (nameInputValue.length > 0) {
         nameInput.style.borderColor = '#395341';
         nameErrorSpan.textContent = ''; 
+        return true;
     } else {
-        event.preventDefault();
         nameLabel.scrollIntoView();
         nameInput.style.borderColor = 'red';
         nameErrorSpan.innerHTML = '<br>Enter your full name.';
@@ -269,15 +273,15 @@ emailLabel.appendChild(emailErrorSpan);
  * @param {object} event - accepts an event object.
  ***/
 
-function emailValidator(event) {
+function emailValidator() {
     const emailInputValue = emailInput.value;
     // Email regular expression from emailregex.com
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailRegex.test(emailInputValue)) {
         emailInput.style.borderColor = '#395341';
         emailErrorSpan.innerHTML = '';
+        return true;
     } else {
-        event.preventDefault();
         emailLabel.scrollIntoView();
         emailInput.style.borderColor = 'red';
         emailErrorSpan.innerHTML = '<br>Enter a valid email format: name@website.com';
@@ -303,7 +307,7 @@ activitiesLegend.appendChild(activitiesErrorSpan);
  * @param {object} event - accepts an event object.
  ***/
 
-function activitiesValidator(event) {
+function activitiesValidator() {
     let numActivities = 0;
     for (let i = 0; i < activityCheckboxes.length; i += 1) {
         if (activityCheckboxes[i].checked) {
@@ -311,11 +315,11 @@ function activitiesValidator(event) {
         }
     }
     if (numActivities === 0) {
-        event.preventDefault();
         activitiesLegend.scrollIntoView();
-        activitiesErrorSpan.innerHTML = '<br>Choose atleast 1 activity.';
+        activitiesErrorSpan.innerHTML = '<br>Choose at least 1 activity.';
     } else {
         activitiesErrorSpan.innerHTML = '';
+        return true;
     }
 }
 
@@ -325,24 +329,27 @@ function activitiesValidator(event) {
  * The spans will contain validation error messages for the credit card #, zip code, and cvv inputs.
  ***/
 
-const ccNumLabel = document.getElementById('cc-num-label');
+const ccNumContainer = document.querySelector('.cc');
 const ccNumInput = document.getElementById('cc-num');
-const zipLabel = document.getElementById('zip-label');
+const zipContainer = document.querySelector('.zipcode');
 const zipInput = document.getElementById('zip');
-const cvvLabel = document.getElementById('cvv-label');
+const cvvContainer = document.querySelector('.cvv-num');
 const cvvInput = document.getElementById('cvv');
-const ccNumErrorSpan = document.createElement('span');
-const zipErrorSpan = document.createElement('span');
-const cvvErrorSpan = document.createElement('span');
-ccNumErrorSpan.style.color = 'red';
-ccNumErrorSpan.style.fontStyle = 'italic';
-zipErrorSpan.style.color = 'red';
-zipErrorSpan.style.fontStyle = 'italic';
-cvvErrorSpan.style.color = 'red';
-cvvErrorSpan.style.fontStyle = 'italic';
-ccNumLabel.appendChild(ccNumErrorSpan);
-zipLabel.appendChild(zipErrorSpan);
-cvvLabel.appendChild(cvvErrorSpan);
+const ccNumError = document.createElement('p');
+const zipError = document.createElement('p');
+const cvvError = document.createElement('p');
+ccNumError.style.color = 'red';
+ccNumError.style.fontStyle = 'italic';
+ccNumError.style.margin = '0px 0px 16px';
+zipError.style.color = 'red';
+zipError.style.fontStyle = 'italic';
+zipError.style.margin = '0px 0px 16px';
+cvvError.style.color = 'red';
+cvvError.style.fontStyle = 'italic';
+cvvError.style.margin = '0px';
+ccNumContainer.appendChild(ccNumError);
+zipContainer.appendChild(zipError);
+cvvContainer.appendChild(cvvError);
 
 
 /***
@@ -353,18 +360,20 @@ cvvLabel.appendChild(cvvErrorSpan);
  * @param {object} event - accepts an event object.
  ***/
 
-function ccNumValidator(event) {
+function ccNumValidator() {
     const ccNumInputValue = ccNumInput.value;
     if (/^\d{13,16}$/.test(ccNumInputValue)) {
         ccNumInput.style.borderColor = '#395341';
-        ccNumErrorSpan.innerHTML = '';
+        ccNumError.innerHTML = '';
+        return true;
     } else if (ccNumInputValue.length === 0) {
-        event.preventDefault();
-        ccNumLabel.scrollIntoView();
+        ccNumContainer.scrollIntoView();
         ccNumInput.style.borderColor = 'red';
-        ccNumErrorSpan.innerHTML = '<br>Enter credit card number.';
+        ccNumError.innerHTML = 'Enter credit card number.';
     } else {
-        ccNumErrorSpan.innerHTML = '<br>Enter a 13 to 16 digit number.';
+        ccNumContainer.scrollIntoView();
+        ccNumInput.style.borderColor = 'red';
+        ccNumError.innerHTML = 'Enter a 13 to 16 digit number.';
     }
 }
 
@@ -377,18 +386,20 @@ function ccNumValidator(event) {
  * @param {object} event - accepts an event object.
  ***/
 
-function zipValidator(event) {
+function zipValidator() {
     const zipInputValue = zipInput.value;
     if (/^\d{5}$/.test(zipInputValue)) {
         zipInput.style.borderColor = '#395341';
-        zipErrorSpan.innerHTML = '';
+        zipError.innerHTML = '';
+        return true;
     } else if (zipInputValue.length === 0) {
-        event.preventDefault();
-        ccNumLabel.scrollIntoView();
+        ccNumContainer.scrollIntoView();
         zipInput.style.borderColor = 'red';
-        zipErrorSpan.innerHTML = '<br>Enter zip code.';
+        zipError.innerHTML = 'Enter zip code.';
     } else {
-        zipErrorSpan.innerHTML = '<br>Enter a 5 digit zipcode.';
+        ccNumContainer.scrollIntoView();
+        zipInput.style.borderColor = 'red';
+        zipError.innerHTML = 'Enter a 5 digit zipcode.';
     }
 }
 
@@ -401,18 +412,20 @@ function zipValidator(event) {
  * @param {object} event - accepts an event object.
  ***/
 
-function cvvValidator(event) {
+function cvvValidator() {
     const cvvInputValue = cvvInput.value;
     if (/^\d{3}$/.test(cvvInputValue)) {
         cvvInput.style.borderColor = '#395341';
-        cvvErrorSpan.innerHTML = '';
+        cvvError.innerHTML = '';
+        return true;
     } else if (cvvInputValue.length === 0) {
-        event.preventDefault();
-        ccNumLabel.scrollIntoView();
+        ccNumContainer.scrollIntoView();
         cvvInput.style.borderColor = 'red';
-        cvvErrorSpan.innerHTML = '<br>Enter card cvv.';
+        cvvError.innerHTML = 'Enter card cvv.';
     } else {
-        cvvErrorSpan.innerHTML = '<br>Enter atleast 3 digits.';
+        ccNumContainer.scrollIntoView();
+        cvvInput.style.borderColor = 'red';
+        cvvError.innerHTML = 'Enter at least 3 digits.';
     }
 }
 
@@ -424,14 +437,23 @@ function cvvValidator(event) {
 
 form.addEventListener('submit', (e) => {
     if (payment.value === 'credit card') {
-        cvvValidator(e);
-        zipValidator(e);
-        ccNumValidator(e);
+        cvvValidator();
+        zipValidator();
+        ccNumValidator();
     }
     
-    activitiesValidator(e);
-    emailValidator(e);
-    nameValidator(e);
+    activitiesValidator();
+    emailValidator();
+    nameValidator();
+
+    if (cvvValidator() !== true || 
+        zipValidator() !== true || 
+        ccNumValidator() !== true || 
+        activitiesValidator() !== true || 
+        emailValidator() !== true || 
+        nameValidator() !== true) {
+            e.preventDefault();
+    }
 });
 
 
@@ -440,14 +462,14 @@ form.addEventListener('submit', (e) => {
    when the user types in the input fields. 
  ***/
 
-ccNumInput.addEventListener('keyup', (e) => {
-    ccNumValidator(e);
+ccNumInput.addEventListener('keyup', () => {
+    ccNumValidator();
 });
 
-zipInput.addEventListener('keyup', (e) => {
-    zipValidator(e);
+zipInput.addEventListener('keyup', () => {
+    zipValidator();
 });
 
-cvvInput.addEventListener('keyup', (e) => {
-    cvvValidator(e);
+cvvInput.addEventListener('keyup', () => {
+    cvvValidator();
 });
