@@ -325,8 +325,8 @@ function activitiesValidator() {
 
 
 /***
- * The following code appends a span element to the credit card #, zip code, and cvv input labels.
- * The spans will contain validation error messages for the credit card #, zip code, and cvv inputs.
+ * The following code appends a p element as a child of the credit card #, zip code, and cvv containers.
+ * The p elements will contain validation error messages for the credit card #, zip code, and cvv inputs.
  ***/
 
 const ccNumContainer = document.querySelector('.cc');
@@ -432,7 +432,8 @@ function cvvValidator() {
 
 /***
  * The following event listener calls the name, email, activities, and credit card payment 
-   validation functions during a form submit event.
+   validation functions during a form submit event. If there are any errors, the user can't 
+   submit the form.
  ***/
 
 form.addEventListener('submit', (e) => {
