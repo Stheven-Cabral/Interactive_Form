@@ -239,7 +239,6 @@ nameLabel.appendChild(nameErrorSpan);
 
 /***
  * 'nameValidator' function - validates if the user entered a name. In addition, adds red border indicators and a message during a validation error.
- * @param {object} event - accepts an event object.
  ***/
 
 function nameValidator() {
@@ -270,7 +269,6 @@ emailLabel.appendChild(emailErrorSpan);
 
 /***
  * 'emailValidator' function - validates if the user entered a valid email. In addition, adds red border indicators and a message during a validation error.
- * @param {object} event - accepts an event object.
  ***/
 
 function emailValidator() {
@@ -304,7 +302,6 @@ activitiesLegend.appendChild(activitiesErrorSpan);
 
 /***
  * 'activitiesValidator' function - validates if the user checked any activities. In addition, adds a message during a validation error.
- * @param {object} event - accepts an event object.
  ***/
 
 function activitiesValidator() {
@@ -357,7 +354,6 @@ cvvContainer.appendChild(cvvError);
    In addition, the function adds red border indicators and a message during a validation error.
    The function displays an error when the input is blank during form submit and a different error when
    the required digits are not met when a user is typing.
- * @param {object} event - accepts an event object.
  ***/
 
 function ccNumValidator() {
@@ -383,7 +379,6 @@ function ccNumValidator() {
    In addition, the function adds red border indicators and a message during a validation error.
    The function displays an error when the input is blank during form submit and a different error when
    the required digits are not met when a user is typing.
- * @param {object} event - accepts an event object.
  ***/
 
 function zipValidator() {
@@ -409,7 +404,6 @@ function zipValidator() {
    In addition, the function adds red border indicators and a message during a validation error.
    The function displays an error when the input is blank during form submit and a different error when
    the required digits are not met when a user is typing.
- * @param {object} event - accepts an event object.
  ***/
 
 function cvvValidator() {
