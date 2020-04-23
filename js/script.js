@@ -455,7 +455,7 @@ form.addEventListener('submit', (e) => {
 /***
  * The following credit card number, zip code, and cvv input event listeners call validator functions
    when the user types in the input fields. 
- ***/
+ */
 
 ccNumInput.addEventListener('keyup', () => {
     ccNumValidator();
