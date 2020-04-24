@@ -435,16 +435,18 @@ form.addEventListener('submit', (e) => {
         cvvValidator();
         zipValidator();
         ccNumValidator();
+        if (cvvValidator() !== true || 
+            zipValidator() !== true || 
+            ccNumValidator() !== true) {
+                e.preventDefault();
+            }
     }
     
     activitiesValidator();
     emailValidator();
     nameValidator();
 
-    if (cvvValidator() !== true || 
-        zipValidator() !== true || 
-        ccNumValidator() !== true || 
-        activitiesValidator() !== true || 
+    if (activitiesValidator() !== true || 
         emailValidator() !== true || 
         nameValidator() !== true) {
             e.preventDefault();
