@@ -1,7 +1,7 @@
 # Interactive_Form
  Third Full Stack JavaScript Techdegree Project
 
-Forr this project, the goal was to add interactivity to a registration form for a fictional conference.  I used pure JavaScript to add interactivity and conditional behaviors as well as validation for various input types. 
+For this project, the goal was to add interactivity to a registration form for a fictional conference.  I used pure JavaScript to add interactivity and conditional behaviors as well as validation for various input types. 
 
 Interactive Features Include:
 - A hidden 'Job Role' text field that appears when the user chooses 'other' at the 'Job Role" select field.
